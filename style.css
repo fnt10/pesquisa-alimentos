@@ -113,7 +113,7 @@ input:focus {
 }
 
 .search-container {
-    display: flex;
+    display: center;
     align-items: center; /* Alinha verticalmente os itens no centro */
 }
 
