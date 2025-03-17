@@ -53,3 +53,12 @@ input {
 .food-item p {
     margin: 5px 0;
 }
+
+.food-item input {
+    width: 80px;
+    padding: 5px;
+    margin: 5px 0;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

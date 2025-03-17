@@ -1,4 +1,4 @@
-// Banco de dados de alimentos (embutido no código)
+// Banco de dados de alimentos
 const foodData = [
     { name: 'Arroz', calories: 130, fat: 0.3, carbs: 28 },
     { name: 'Feijão', calories: 130, fat: 0.6, carbs: 24 },
@@ -10,52 +10,64 @@ const foodData = [
     { name: 'Queijo', calories: 402, fat: 33, carbs: 1.3 }
 ];
 
-// Definindo o tempo de debounce para aguardar o usuário parar de digitar
+// Definição do debounce para evitar múltiplas chamadas
 let debounceTimeout;
-
-// Função de pesquisa com debounce
 function debounceSearch() {
-    const searchQuery = document.getElementById('search').value.toLowerCase();
-    const resultDiv = document.getElementById('result');
-
-    // Limpar resultados antigos
-    resultDiv.innerHTML = '';
-
-    // Se a pesquisa estiver vazia, não mostrar nada
-    if (searchQuery === '') {
-        return;
-    }
-
-    // Limpar o timeout anterior (se houver) e iniciar um novo
     clearTimeout(debounceTimeout);
-
-    // Aguardar 500ms após o último caractere digitado para realizar a pesquisa
     debounceTimeout = setTimeout(() => {
-        searchFood(searchQuery);
-    }, 500);
+        searchFood();
+    }, 300);
 }
 
-// Função de execução da pesquisa
-function searchFood(searchQuery) {
+// Função de pesquisa básica
+function searchFood() {
+    const searchQuery = document.getElementById('search').value.toLowerCase();
     const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = '';
 
-    // Filtrar alimentos com base na pesquisa
-    const filteredFoods = foodData.filter(food => food.name.toLowerCase().includes(searchQuery));
+    if (searchQuery === '') return;
 
-    // Mostrar resultados
+    const filteredFoods = foodData.filter(food =>
+        food.name.toLowerCase().includes(searchQuery)
+    );
+
     if (filteredFoods.length > 0) {
         filteredFoods.forEach(food => {
             const foodItem = document.createElement('div');
             foodItem.classList.add('food-item');
+
+            // Input para o peso do alimento
             foodItem.innerHTML = `
                 <h3>${food.name}</h3>
-                <p><strong>Calorias:</strong> ${food.calories} kcal</p>
-                <p><strong>Gorduras:</strong> ${food.fat} g</p>
-                <p><strong>Carboidratos:</strong> ${food.carbs} g</p>
+                <label>Informe o peso (g):</label>
+                <input type="number" class="food-weight" data-name="${food.name}" min="1" placeholder="100" value="100">
+                <p><strong>Calorias:</strong> <span class="calories">${food.calories}</span> kcal</p>
+                <p><strong>Gorduras:</strong> <span class="fat">${food.fat}</span> g</p>
+                <p><strong>Carboidratos:</strong> <span class="carbs">${food.carbs}</span> g</p>
             `;
             resultDiv.appendChild(foodItem);
         });
+
+        // Adiciona eventos para calcular os valores nutricionais com base no peso informado
+        document.querySelectorAll('.food-weight').forEach(input => {
+            input.addEventListener('input', updateNutrition);
+        });
     } else {
         resultDiv.innerHTML = '<p>Nenhum alimento encontrado.</p>';
+    }
+}
+
+// Função para recalcular os valores nutricionais com base no peso informado
+function updateNutrition(event) {
+    const weight = parseFloat(event.target.value) || 100;
+    const foodName = event.target.getAttribute('data-name');
+    
+    const food = foodData.find(f => f.name === foodName);
+    
+    if (food) {
+        const parentDiv = event.target.parentElement;
+        parentDiv.querySelector('.calories').textContent = ((food.calories * weight) / 100).toFixed(2);
+        parentDiv.querySelector('.fat').textContent = ((food.fat * weight) / 100).toFixed(2);
+        parentDiv.querySelector('.carbs').textContent = ((food.carbs * weight) / 100).toFixed(2);
     }
 }
