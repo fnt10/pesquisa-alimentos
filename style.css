@@ -5,36 +5,49 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding: 10px;
 }
 
 .container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 500px;
+    max-width: 480px;
     text-align: center;
+    overflow: hidden;
 }
 
 h1 {
+    font-size: 28px;
+    font-weight: 600;
     margin-bottom: 20px;
-    font-size: 24px;
+    color: #2d2d2d;
 }
 
 input {
-    padding: 10px;
-    width: 80%;
+    padding: 12px 18px;
+    width: 90%;
     font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    border-radius: 30px;
+    border: 2px solid #ddd;
     margin-bottom: 20px;
+    background-color: #fafafa;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #6c63ff;
+    background-color: #fff;
 }
 
 #result {
@@ -43,22 +56,71 @@ input {
 }
 
 .food-item {
-    padding: 10px;
-    border: 1px solid #ddd;
-    margin: 5px 0;
-    border-radius: 4px;
+    padding: 15px;
+    border-radius: 10px;
     background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.food-item:hover {
+    background-color: #e9e9e9;
+    transform: scale(1.02);
+}
+
+.food-item h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
 }
 
 .food-item p {
-    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
 }
 
-.food-item input {
-    width: 80px;
-    padding: 5px;
-    margin: 5px 0;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.food-item p strong {
+    font-weight: 600;
+    color: #333;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 15px;
+    }
+
+    .container {
+        padding: 15px;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .food-item {
+        font-size: 14px;
+    }
+}
+
+.search-container {
+    display: flex;
+    align-items: center; /* Alinha verticalmente os itens no centro */
+}
+
+#searchInput {
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    width: 90%;
+    margin-right: 10px; /* Se você tiver um botão, mas não é mais necessário */
 }
