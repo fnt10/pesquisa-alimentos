@@ -16,6 +16,7 @@ body {
 }
 
 .container {
+    position: relative;
     background-color: #ffffff;
     border-radius: 15px;
     padding: 25px;
@@ -102,6 +103,12 @@ input:focus {
         font-size: 24px;
     }
 
+    p {
+        font-size: 15px;
+        align-items: left;
+
+    }
+
     input {
         width: 100%;
         padding: 12px;
@@ -123,4 +130,11 @@ input:focus {
     border-radius: 30px;
     width: 90%;
     margin-right: 10px; /* Se você tiver um botão, mas não é mais necessário */
+}
+
+.calculadora {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
 }
